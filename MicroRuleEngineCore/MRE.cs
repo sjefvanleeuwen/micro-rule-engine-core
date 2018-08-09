@@ -16,5 +16,10 @@ namespace MicroRuleEngineCore
         {
             return RuleCompiler.Compile<T>(rule);
         }
+
+        public Func<T, bool> Compile<T>(string json)
+        {
+            return RuleCompiler.Compile<T>(json);
+        }
     }
 }

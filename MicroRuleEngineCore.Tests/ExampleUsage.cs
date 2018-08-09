@@ -13,6 +13,17 @@ namespace MicroRuleEngineCore.Tests
     public class ExampleUsage
     {
         [TestMethod]
+        public void ChildPropertiesOfNullSerialized()
+        {
+            Order order = GetOrder();
+            order.Customer = null;
+            var rule = "{\"MemberName\":\"Customer.Country.CountryCode\",\"Operator\":\"Equal\",\"TargetValue\":\"AUS\",\"Rules\":null,\"Inputs\":[]}";
+            var compiledRule = MRE.Instance.Compile<Order>(rule);
+            bool passes = compiledRule(order);
+            Assert.IsFalse(passes);
+        }
+
+        [TestMethod]
         public void ChildPropertiesOfNull()
         {
             Order order = GetOrder();

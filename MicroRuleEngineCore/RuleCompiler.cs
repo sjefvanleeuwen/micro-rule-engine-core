@@ -14,6 +14,11 @@ namespace MicroRuleEngineCore
             return Expression.Lambda<Func<T, bool>>(expression, expressionParameter).Compile();
         }
 
+        public static Func<T, bool> Compile<T>(string json)
+        {
+            return Compile<T>(Newtonsoft.Json.JsonConvert.DeserializeObject<Rule>(json));
+        }
+
         public static Func<T, bool> Compile<T>(IEnumerable<Rule> rules)
         {
             var expressionParameter = Expression.Parameter(typeof(T));
